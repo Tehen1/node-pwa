@@ -1,22 +1,21 @@
 {
-  "name": "node-express-api-ts",
-  "description": "Simple api sample in Node",
+  "name": "studio-fixierun-ai-coach",
   "version": "1.0.0",
   "private": true,
-  "main": "index.js",
   "scripts": {
-    "dev": "nodemon --watch 'src/**' --ext 'ts,json' --exec 'npm run build && npm run start'",
-    "build": "tsc",
-    "start": "node dist/index.js"
+    "dev": "next dev",
+    "build": "next build",
+    "export": "next build && next export",
+    "postexport:sw": "node scripts/generate-sw.js",
+    "deploy:gh-pages": "DEPLOY_TARGET=github-pages npm run export && npm run postexport:sw && npx gh-pages -d out -b gh-pages"
   },
-  "author": "Google LLC",
-  "license": "Apache-2.0",
   "dependencies": {
-    "express": "^4.21.2"
+    "next": "13.x",
+    "react": "18.x",
+    "react-dom": "18.x"
   },
   "devDependencies": {
-    "nodemon": "^3.1.0",
-    "typescript": "^5.4.5",
-    "@types/node": "^20.12.12"
+    "workbox-build": "^6.5.4",
+    "gh-pages": "^5.0.0"
   }
 }
