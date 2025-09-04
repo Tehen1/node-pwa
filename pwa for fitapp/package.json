@@ -1,0 +1,24 @@
+{
+  "name": "fixierun-contracts",
+  "version": "1.0.0", 
+  "description": "Smart contracts for FixieRun Move-to-Earn fitness app on Polygon zkEVM",
+  "scripts": {
+    "compile": "hardhat compile",
+    "deploy:zkevm": "hardhat run scripts/deploy.js --network polygonZkEVM",
+    "test": "hardhat test",
+    "verify": "hardhat verify"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.9.3",
+    "@nomiclabs/hardhat-ethers": "^2.2.3",
+    "@nomiclabs/hardhat-etherscan": "^3.1.7",
+    "hardhat": "^2.17.1",
+    "ethers": "^5.7.2"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-chai-matchers": "^1.0.6",
+    "@nomiclabs/hardhat-waffle": "^2.0.6",
+    "chai": "^4.3.7",
+    "ethereum-waffle": "^3.4.4"
+  }
+}

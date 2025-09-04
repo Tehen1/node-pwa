@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FixieRun - Web3 Fitness App</title>
+    <meta name="description" content="Earn crypto rewards while staying fit with FixieRun on Polygon zkEVM">
+    <meta name="theme-color" content="#5D5CDE">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIkZpeGllUnVuIC0gV2ViMyBGaXRuZXNzIEFwcCIsCiAgInNob3J0X25hbWUiOiAiRml4aWVSdW4iLAogICJkZXNjcmlwdGlvbiI6ICJFYXJUIGY3J5cHRvIHJld2FyZHMgd2hpbGUgc3RheWluZyBmaXQgd2l0aCBGaXhpZVJ1biBvbiBQb2x5Z29uIHprRVZNIiwKICAic3RhcnRfdXJsIjogIi8iLAogICJkaXNwbGF5IjogInN0YW5kYWxvbmUiLAogICJ0aGVtZV9jb2xvciI6ICIjNUQ1Q0RFIiwKICAiYmFja2dyb3VuZF9jb2xvciI6ICIjMUYyMTIxIiwKICAiaWNvbnMiOiBbCiAgICB7CiAgICAgICJzcmMiOiAiZGF0YTppbWFnZS9zdmcreG1sO2Jhc2U2NCxQSE4yWnlCNGJXeHVjejBpYUhSMGNEb3ZMM2QzZHk1M00zUnZjbWN2TWpBd01DOXpkbWNpSUhkcFpIUm9QU0kxTWpJaUlHaGxhV2RvZEQwaU5USXlJajQ4Y21WamRDQjNhV1IwYUQwaU5USXlJaUJvWldsbmFIUTlJalV5TWlJZ1ptbHNiRDBpSTFWRU5VTkVSU0l2UGp3dmMzWm5QZz09IiwKICAgICAgInNpemVzIjogIjUxMng1MTIiLAogICAgICAidHlwZSI6ICJpbWFnZS9zdmcreG1sIgogICAgfQogIF0sCiAgImNhdGVnb3JpZXMiOiBbImZpdG5lc3MiLCAiaGVhbHRoIiwgImJsb2NrY2hhaW4iXSwKICAib3JpZW50YXRpb24iOiAicG9ydHJhaXQiLAogICJsYW5nIjogImVuIgp9">
+    
+    <!-- Icons and Meta -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MjIiIGhlaWdodD0iNTIyIj48cmVjdCB3aWR0aD0iNTIyIiBoZWlnaHQ9IjUyMiIgZmlsbD0iIzVENUNERSIvPjwvc3ZnPg==">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="FixieRun">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body data-color-scheme="dark">
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-spinner"></div>
+        <h2 class="loading-text">FixieRun</h2>
+        <p class="loading-subtext">Loading your fitness journey...</p>
+    </div>
+
+    <!-- Main App Container -->
+    <div id="app" class="app-container hidden">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <h1 class="app-logo">
+                    <span class="logo-fix">Fix</span><span class="logo-run">ieRun</span>
+                </h1>
+                <div class="header-actions">
+                    <button id="theme-toggle" class="btn-icon" aria-label="Toggle theme">
+                        <svg class="theme-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="5"/>
+                            <line x1="12" y1="1" x2="12" y2="3"/>
+                            <line x1="12" y1="21" x2="12" y2="23"/>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                            <line x1="1" y1="12" x2="3" y2="12"/>
+                            <line x1="21" y1="12" x2="23" y2="12"/>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                        </svg>
+                    </button>
+                    <div class="wallet-status">
+                        <span class="status-dot connected"></span>
+                        <span class="wallet-text">zkEVM</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Home Screen -->
+            <div id="home-screen" class="screen active">
+                <div class="welcome-banner">
+                    <h2 class="welcome-title">Hey Alex! 👋</h2>
+                    <div class="user-stats">
+                        <span class="level-badge">Level 12</span>
+                        <span class="streak-badge">🔥 7 day streak</span>
+                    </div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">📏</div>
+                        <div class="stat-value">32.5km</div>
+                        <div class="stat-label">Weekly Distance</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🔥</div>
+                        <div class="stat-value">1,250</div>
+                        <div class="stat-label">Calories</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">💎</div>
+                        <div class="stat-value">125.75</div>
+                        <div class="stat-label">$FIXIE Tokens</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">⚡</div>
+                        <div class="stat-value">7</div>
+                        <div class="stat-label">Streak Days</div>
+                    </div>
+                </div>
+
+                <button class="quick-start-btn">
+                    <span class="btn-text">Quick Start Workout</span>
+                    <svg class="btn-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polygon points="5 3 19 12 5 21 5 3"/>
+                    </svg>
+                </button>
+
+                <div class="section">
+                    <h3 class="section-title">Recent Activity</h3>
+                    <div class="activity-list">
+                        <div class="activity-item">
+                            <div class="activity-icon">🚴</div>
+                            <div class="activity-details">
+                                <div class="activity-name">Morning Ride</div>
+                                <div class="activity-meta">Today, 9:30 AM • 5.2km • 25min</div>
+                            </div>
+                            <div class="activity-reward">+2.6 $FIXIE</div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon">🏃</div>
+                            <div class="activity-details">
+                                <div class="activity-name">Evening Run</div>
+                                <div class="activity-meta">Yesterday, 6:15 PM • 3.7km • 30min</div>
+                            </div>
+                            <div class="activity-reward">+1.85 $FIXIE</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3 class="section-title">Current Challenges</h3>
+                    <div class="challenges-list">
+                        <div class="challenge-card">
+                            <div class="challenge-info">
+                                <div class="challenge-name">Weekly Distance</div>
+                                <div class="challenge-progress">32.5 / 50 km</div>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 65%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Workouts Screen -->
+            <div id="workouts-screen" class="screen">
+                <div class="screen-header">
+                    <h2 class="screen-title">Workouts</h2>
+                    <div class="calendar-mini">May 2025</div>
+                </div>
+
+                <div class="workout-filters">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="fixie">Fixie Rides</button>
+                    <button class="filter-btn" data-filter="running">Running</button>
+                </div>
+
+                <div class="workouts-grid">
+                    <div class="workout-card" data-type="fixie">
+                        <div class="workout-header">
+                            <h3 class="workout-name">Urban Sprint</h3>
+                            <div class="intensity-badge high">High</div>
+                        </div>
+                        <div class="workout-stats">
+                            <span class="workout-duration">25 min</span>
+                            <span class="workout-calories">~350 cal</span>
+                            <span class="workout-reward">~4.5 $FIXIE</span>
+                        </div>
+                        <p class="workout-description">High-intensity sprint training through urban areas</p>
+                        <button class="start-workout-btn" data-workout-id="1">Start Workout</button>
+                    </div>
+
+                    <div class="workout-card" data-type="fixie">
+                        <div class="workout-header">
+                            <h3 class="workout-name">Endurance Ride</h3>
+                            <div class="intensity-badge medium">Medium</div>
+                        </div>
+                        <div class="workout-stats">
+                            <span class="workout-duration">45 min</span>
+                            <span class="workout-calories">~420 cal</span>
+                            <span class="workout-reward">~6.2 $FIXIE</span>
+                        </div>
+                        <p class="workout-description">Long-distance endurance training to build stamina</p>
+                        <button class="start-workout-btn" data-workout-id="2">Start Workout</button>
+                    </div>
+
+                    <div class="workout-card" data-type="running">
+                        <div class="workout-header">
+                            <h3 class="workout-name">Interval Run</h3>
+                            <div class="intensity-badge high">High</div>
+                        </div>
+                        <div class="workout-stats">
+                            <span class="workout-duration">30 min</span>
+                            <span class="workout-calories">~400 cal</span>
+                            <span class="workout-reward">~5.1 $FIXIE</span>
+                        </div>
+                        <p class="workout-description">Alternating between sprinting and jogging</p>
+                        <button class="start-workout-btn" data-workout-id="4">Start Workout</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Track Screen -->
+            <div id="track-screen" class="screen">
+                <div class="track-header">
+                    <h2 class="track-title">Live Tracking</h2>
+                    <div class="mode-toggle">
+                        <button class="mode-btn active" data-mode="run">🏃 Run</button>
+                        <button class="mode-btn" data-mode="bike">🚴 Bike</button>
+                    </div>
+                </div>
+
+                <div class="timer-display">
+                    <div class="timer-time">00:00:00</div>
+                    <div class="timer-status">Ready to start</div>
+                </div>
+
+                <div class="live-stats">
+                    <div class="live-stat">
+                        <div class="stat-value">0.0</div>
+                        <div class="stat-unit">km</div>
+                        <div class="stat-label">Distance</div>
+                    </div>
+                    <div class="live-stat">
+                        <div class="stat-value">0.0</div>
+                        <div class="stat-unit">km/h</div>
+                        <div class="stat-label">Speed</div>
+                    </div>
+                    <div class="live-stat">
+                        <div class="stat-value">0</div>
+                        <div class="stat-unit">cal</div>
+                        <div class="stat-label">Calories</div>
+                    </div>
+                </div>
+
+                <div class="map-container">
+                    <div class="map-placeholder">
+                        <div class="map-overlay">
+                            <div class="gps-indicator">📍 GPS Active</div>
+                            <div class="map-info">Tracking your route...</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="token-progress">
+                    <div class="progress-header">
+                        <span>Token Progress</span>
+                        <span class="progress-value">0.0 $FIXIE</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill token-progress-fill" style="width: 0%"></div>
+                    </div>
+                </div>
+
+                <div class="track-controls">
+                    <button id="start-btn" class="control-btn primary">
+                        <span class="btn-text">Start</span>
+                    </button>
+                    <button id="pause-btn" class="control-btn secondary hidden">
+                        <span class="btn-text">Pause</span>
+                    </button>
+                    <button id="stop-btn" class="control-btn danger hidden">
+                        <span class="btn-text">Stop</span>
+                    </button>
+                </div>
+
+                <div class="multiplayer-toggle">
+                    <label class="toggle-label">
+                        <input type="checkbox" id="multiplayer-checkbox">
+                        <span class="toggle-slider"></span>
+                        <span class="toggle-text">Show nearby users</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Rewards Screen -->
+            <div id="rewards-screen" class="screen">
+                <div class="rewards-header">
+                    <div class="token-balance">
+                        <h2 class="balance-amount">125.75 $FIXIE</h2>
+                        <p class="balance-usd">≈ $94.31 USD</p>
+                    </div>
+                    <div class="token-actions">
+                        <button class="token-btn buy">Buy</button>
+                        <button class="token-btn sell">Sell</button>
+                        <button class="token-btn transfer">Transfer</button>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3 class="section-title">NFT Collection</h3>
+                    <div class="nft-grid">
+                        <div class="nft-card">
+                            <div class="nft-image">🏃‍♂️</div>
+                            <div class="nft-info">
+                                <div class="nft-name">Neon Racer</div>
+                                <div class="nft-rarity rare">Rare • Level 3</div>
+                                <div class="nft-boost">+5% XP</div>
+                            </div>
+                        </div>
+                        <div class="nft-card">
+                            <div class="nft-image">👟</div>
+                            <div class="nft-info">
+                                <div class="nft-name">Urban Phantom</div>
+                                <div class="nft-rarity uncommon">Uncommon • Level 2</div>
+                                <div class="nft-boost">+2% Tokens</div>
+                            </div>
+                        </div>
+                        <div class="nft-card">
+                            <div class="nft-image">⚡</div>
+                            <div class="nft-info">
+                                <div class="nft-name">Street King</div>
+                                <div class="nft-rarity common">Common • Level 1</div>
+                                <div class="nft-boost">+1% Speed</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3 class="section-title">Transaction History</h3>
+                    <div class="transaction-list">
+                        <div class="transaction-item">
+                            <div class="transaction-icon">💰</div>
+                            <div class="transaction-details">
+                                <div class="transaction-type">Workout Reward</div>
+                                <div class="transaction-date">May 21</div>
+                            </div>
+                            <div class="transaction-amount">+4.05 $FIXIE</div>
+                        </div>
+                        <div class="transaction-item">
+                            <div class="transaction-icon">💰</div>
+                            <div class="transaction-details">
+                                <div class="transaction-type">Workout Reward</div>
+                                <div class="transaction-date">May 20</div>
+                            </div>
+                            <div class="transaction-amount">+1.85 $FIXIE</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile Screen -->
+            <div id="profile-screen" class="screen">
+                <div class="profile-header">
+                    <div class="avatar">
+                        <div class="avatar-image">👨‍💼</div>
+                        <div class="avatar-level">12</div>
+                    </div>
+                    <div class="profile-info">
+                        <h2 class="profile-name">Alex</h2>
+                        <p class="profile-address">0x1234...5678</p>
+                    </div>
+                </div>
+
+                <div class="xp-progress">
+                    <div class="xp-header">
+                        <span>Experience Progress</span>
+                        <span class="xp-value">2,450 / 3,000 XP</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 82%"></div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3 class="section-title">Achievements</h3>
+                    <div class="achievements-grid">
+                        <div class="achievement-badge earned">
+                            <div class="badge-icon">🏃</div>
+                            <div class="badge-name">First Run</div>
+                        </div>
+                        <div class="achievement-badge earned">
+                            <div class="badge-icon">🔥</div>
+                            <div class="badge-name">Week Streak</div>
+                        </div>
+                        <div class="achievement-badge">
+                            <div class="badge-icon">🏆</div>
+                            <div class="badge-name">Marathon</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3 class="section-title">Connected Apps</h3>
+                    <div class="connected-apps">
+                        <div class="app-connection">
+                            <div class="app-info">
+                                <div class="app-name">zkEVM Wallet</div>
+                                <div class="app-status connected">Connected</div>
+                            </div>
+                            <div class="connection-toggle">
+                                <div class="toggle-switch active"></div>
+                            </div>
+                        </div>
+                        <div class="app-connection">
+                            <div class="app-info">
+                                <div class="app-name">Google Fit</div>
+                                <div class="app-status disconnected">Not Connected</div>
+                            </div>
+                            <div class="connection-toggle">
+                                <div class="toggle-switch"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3 class="section-title">Settings</h3>
+                    <div class="settings-list">
+                        <div class="setting-item">
+                            <span class="setting-name">Notifications</span>
+                            <div class="setting-toggle">
+                                <div class="toggle-switch active"></div>
+                            </div>
+                        </div>
+                        <div class="setting-item">
+                            <span class="setting-name">Units</span>
+                            <span class="setting-value">Kilometers</span>
+                        </div>
+                        <div class="setting-item">
+                            <span class="setting-name">Privacy</span>
+                            <span class="setting-value">Public</span>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="logout-btn">
+                    <span class="btn-text">Logout</span>
+                </button>
+            </div>
+        </main>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <button class="nav-item active" data-screen="home">
+                <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                    <polyline points="9,22 9,12 15,12 15,22"/>
+                </svg>
+                <span class="nav-label">Home</span>
+            </button>
+            <button class="nav-item" data-screen="workouts">
+                <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M6.3 12.3l10 3.4"/>
+                    <path d="M14 12h8"/>
+                    <path d="M2 12h8"/>
+                    <circle cx="12" cy="12" r="2"/>
+                    <circle cx="6" cy="12" r="2"/>
+                    <circle cx="18" cy="12" r="2"/>
+                </svg>
+                <span class="nav-label">Workouts</span>
+            </button>
+            <button class="nav-item" data-screen="track">
+                <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <polyline points="12,6 12,12 16,14"/>
+                </svg>
+                <span class="nav-label">Track</span>
+            </button>
+            <button class="nav-item" data-screen="rewards">
+                <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+                    <line x1="3" y1="6" x2="21" y2="6"/>
+                    <path d="m16 10-4 4-4-4"/>
+                </svg>
+                <span class="nav-label">Rewards</span>
+            </button>
+            <button class="nav-item" data-screen="profile">
+                <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                    <circle cx="12" cy="7" r="4"/>
+                </svg>
+                <span class="nav-label">Profile</span>
+            </button>
+        </nav>
+    </div>
+
+    <!-- Workout Complete Modal -->
+    <div id="workout-complete-modal" class="modal hidden">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Workout Complete! 🎉</h2>
+            </div>
+            <div class="modal-body">
+                <div class="completion-stats">
+                    <div class="completion-stat">
+                        <div class="stat-value">0.0</div>
+                        <div class="stat-label">Distance (km)</div>
+                    </div>
+                    <div class="completion-stat">
+                        <div class="stat-value">0</div>
+                        <div class="stat-label">Calories</div>
+                    </div>
+                    <div class="completion-stat">
+                        <div class="stat-value">0.0</div>
+                        <div class="stat-label">$FIXIE Earned</div>
+                    </div>
+                </div>
+                <div class="xp-gained">
+                    <div class="xp-text">+150 XP Gained!</div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="close-workout-modal" class="btn btn--primary btn--full-width">Continue</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
