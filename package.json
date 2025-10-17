@@ -10,7 +10,7 @@
     "deploy:gh-pages": "DEPLOY_TARGET=github-pages npm run export && npm run postexport:sw && npx gh-pages -d out -b gh-pages"
   },
   "dependencies": {
-    "next": "13.x",
+    "next": "15.x",
     "react": "18.x",
     "react-dom": "18.x"
   },
