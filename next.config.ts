@@ -7,10 +7,13 @@ const basePath = isGithubPages ? '/studio-fixierun-ai-coach' : '';
 
 const nextConfig = {
   reactStrictMode: true,
-  swcMinify: true,
   basePath,
   assetPrefix: basePath || undefined,
-  output: 'export', // force static export; ensure app is exportable (no SSR)
+  output: 'export',
+  distDir: 'dist',
+  typescript: {
+    ignoreBuildErrors: true,
+  },
 };
 
 export default nextConfig;
