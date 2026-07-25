@@ -19,6 +19,6 @@
     "gh-pages": "^5.0.0",
     "typescript": "^5.0.0",
     "@types/react": "^18.0.0",
-    "@types/node": "^20.0.0"
+    "@types/node": "^20.19.43"
   }
 }
